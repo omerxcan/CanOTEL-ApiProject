@@ -1,0 +1,36 @@
+﻿@model List<BookingApiViewModel.Data.Hotel>
+@{
+    Layout = null;
+    int count = 0;
+}
+
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+<div class="container">
+    <br />    <br />
+    <table class="table table-bordered">
+        <tr>
+            <th>#</th>
+            <th>Otel Adı</th>
+            <th>Otel Puanı</th>
+            <th>Otel Detaylar</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            count++;
+            <tr>
+                <th>@count</th>
+                <td>@item.property.name</td>
+                <td>@item.property.reviewScore</td>
+                <td><a href="#" class="btn btn-outline-dark">Detaylar</a></td>
+            </tr>
+        }
+    </table>
+</div>
+@* View'de sadece name ve reviewScore gibi alanları göstermek istiyorsunuz, ancak bu alanlara ulaşabilmek için JSON'un tamamı deserialize edilmek zorunda. Bunun sebebi:
+Modelin JSON'dan bağımsız olması.
+Hiyerarşinin deserialization sırasında kırılmaması.
+Yani, view'de doğrudan Property1 bilgilerini kullanacak olsanız bile, 
+JSON'dan bu bilgilere ulaşabilmek için önce data -> hotels -> property hiyerarşisini takip eden bir model oluşturmanız gerekir.
+JSON'u deserialization işleminde hiyerarşiyle karşılamak gerektiğinde kast edilen hiyerarşi, JSON'un iç içe geçmiş nesne yapısının sınıf düzeyinde modellenmesidir.
+Ancak, bir sınıfın içindeki tüm property'leri modele eklemek zorunda değilsiniz*@
